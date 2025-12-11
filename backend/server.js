@@ -1,11 +1,20 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const routes = require('./routes');
+const { PORT } = require('./config/constants');
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Mount API routes
+app.use('/api', routes);
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
