@@ -75,6 +75,8 @@ npm start
 | GET | `/api/appointments` | List available slots |
 | POST | `/api/book` | Create booking |
 | POST | `/api/pay` | Process payment via Stripe |
+| POST | `/api/cancel` | Cancel a booking |
+| POST | `/api/reschedule` | Reschedule booking to new slot |
 | GET | `/api/admin/bookings` | View all bookings (admin) |
 
 ## Testing
@@ -86,6 +88,20 @@ npm start
 **View All Bookings (Admin):**
 ```bash
 curl http://localhost:3000/api/admin/bookings
+```
+
+**Cancel a Booking:**
+```bash
+curl -X POST http://localhost:3000/api/cancel \
+  -H "Content-Type: application/json" \
+  -d '{"bookingId":"1734336000000"}'
+```
+
+**Reschedule a Booking:**
+```bash
+curl -X POST http://localhost:3000/api/reschedule \
+  -H "Content-Type: application/json" \
+  -d '{"bookingId":"1734336000000","newSlotId":2}'
 ```
 
 ## Project Structure
@@ -110,6 +126,9 @@ Beyond_BMI/
 - ✅ View available appointment slots
 - ✅ Book appointments with validation
 - ✅ Process real Stripe test payments
+- ✅ Cancel bookings (releases slot)
+- ✅ Reschedule bookings to new slots
+- ✅ Admin endpoint to view all bookings
 - ✅ TypeScript type safety
 - ✅ Environment-based configuration
 - ✅ RESTful API design

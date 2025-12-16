@@ -51,9 +51,41 @@ const getAllBookings = () => {
   return bookings;
 };
 
+/**
+ * Cancel a booking
+ * @param {string} bookingId - The booking ID to cancel
+ * @returns {boolean} True if successful, false otherwise
+ */
+const cancelBooking = (bookingId) => {
+  const index = bookings.findIndex(b => b.id == bookingId);
+  if (index !== -1) {
+    const booking = bookings[index];
+    bookings.splice(index, 1);
+    return { success: true, booking };
+  }
+  return { success: false };
+};
+
+/**
+ * Reschedule a booking to a new slot
+ * @param {string} bookingId - The booking ID to reschedule
+ * @param {number|string} newSlotId - The new slot ID
+ * @returns {Object} Result with success status and updated booking
+ */
+const rescheduleBooking = (bookingId, newSlotId) => {
+  const booking = findBookingById(bookingId);
+  if (booking) {
+    booking.slotId = newSlotId;
+    return { success: true, booking };
+  }
+  return { success: false };
+};
+
 module.exports = {
   createBooking,
   findBookingById,
   markBookingAsPaid,
   getAllBookings,
+  cancelBooking,
+  rescheduleBooking,
 };
