@@ -51,9 +51,24 @@ const isSlotAvailable = (slotId) => {
   return slot && slot.available;
 };
 
+/**
+ * Mark a slot as available (release it)
+ * @param {number|string} slotId - The slot ID to mark as available
+ * @returns {boolean} True if successful, false otherwise
+ */
+const markSlotAsAvailable = (slotId) => {
+  const slot = findSlotById(slotId);
+  if (slot) {
+    slot.available = true;
+    return true;
+  }
+  return false;
+};
+
 module.exports = {
   getAvailableSlots,
   findSlotById,
   markSlotAsUnavailable,
+  markSlotAsAvailable,
   isSlotAvailable,
 };
