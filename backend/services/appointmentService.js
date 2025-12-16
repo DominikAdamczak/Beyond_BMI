@@ -1,8 +1,13 @@
 // In-memory data storage for slots
 let slots = [
-  { id: 1, date: '2023-12-01', time: '10:00', available: true },
-  { id: 2, date: '2023-12-01', time: '11:00', available: true },
-  { id: 3, date: '2023-12-02', time: '10:00', available: true },
+  { id: 1, date: '2024-12-20', time: '10:00 AM', available: true },
+  { id: 2, date: '2024-12-20', time: '11:00 AM', available: true },
+  { id: 3, date: '2024-12-20', time: '02:00 PM', available: true },
+  { id: 4, date: '2024-12-21', time: '09:00 AM', available: true },
+  { id: 5, date: '2024-12-21', time: '10:00 AM', available: true },
+  { id: 6, date: '2024-12-21', time: '03:00 PM', available: true },
+  { id: 7, date: '2024-12-22', time: '10:00 AM', available: true },
+  { id: 8, date: '2024-12-22', time: '11:00 AM', available: true },
 ];
 
 /**
