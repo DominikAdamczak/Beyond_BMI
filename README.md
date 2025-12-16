@@ -9,7 +9,7 @@ React Native (Expo) + Node.js application enabling users to view available appoi
 ## Tech Stack
 
 **Frontend:** React Native, Expo, TypeScript, Expo Router, Axios  
-**Backend:** Node.js, Express, RESTful API  
+**Backend:** Node.js, Express, Stripe API  
 **Payment:** Stripe (Test Mode)
 
 ## Quick Start
@@ -17,7 +17,7 @@ React Native (Expo) + Node.js application enabling users to view available appoi
 ### Prerequisites
 - Node.js v16+
 - Android Emulator or iOS Simulator
-- Stripe test account
+- Stripe account with test API keys
 
 ### Installation
 
@@ -33,19 +33,24 @@ npm install
 
 ### Configuration
 
-**Backend** (`backend/.env`):
+**Backend** - Create `backend/.env`:
 ```env
-PORT=3000
-NODE_ENV=development
+STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key_here
 ```
 
-**Frontend** (`frontend/.env`):
+**Frontend** - Create `frontend/.env`:
 ```env
-EXPO_PUBLIC_API_BASE_URL=http://10.0.2.2:3000/api  # Android Emulator
+# Android Emulator
+EXPO_PUBLIC_API_BASE_URL=http://10.0.2.2:3000/api
+
+# iOS Simulator  
+# EXPO_PUBLIC_API_BASE_URL=http://localhost:3000/api
+
+# Stripe Publishable Key (for display only)
 EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_key_here
 ```
 
-> **Note:** Use `http://localhost:3000/api` for iOS, `http://10.0.2.2:3000/api` for Android Emulator
+> **Get Stripe Keys:** Sign up at [stripe.com](https://stripe.com) → Developers → API Keys → Copy test keys
 
 ### Running the Application
 
@@ -53,6 +58,7 @@ EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_key_here
 ```bash
 cd backend
 npm start
+# Server runs on http://localhost:3000
 ```
 
 **Start Frontend:**
@@ -68,7 +74,7 @@ npm start
 |--------|----------|-------------|
 | GET | `/api/appointments` | List available slots |
 | POST | `/api/book` | Create booking |
-| POST | `/api/pay` | Process payment |
+| POST | `/api/pay` | Process payment via Stripe |
 
 ## Testing
 
@@ -82,38 +88,57 @@ npm start
 Beyond_BMI/
 ├── frontend/          # React Native app
 │   ├── app/          # Screens (Expo Router)
+│   │   ├── index.tsx      # Appointments list
+│   │   ├── booking.tsx    # Booking form
+│   │   └── payment.tsx    # Payment screen
 │   └── services/     # API layer
 └── backend/          # Express API
     ├── controllers/  # Request handlers
-    ├── services/     # Business logic
-    └── routes/       # API routes
+    ├── services/     # Business logic (Stripe integration)
+    ├── routes/       # API routes
+    └── config/       # Configuration
 ```
 
 ## Features
 
 - ✅ View available appointment slots
 - ✅ Book appointments with validation
-- ✅ Process test payments via Stripe
+- ✅ Process real Stripe test payments
 - ✅ TypeScript type safety
 - ✅ Environment-based configuration
 - ✅ RESTful API design
+- ✅ Expo Go compatible
 
 ## Troubleshooting
 
-**Cannot connect to backend:**
-- Verify backend is running on port 3000
-- Check `EXPO_PUBLIC_API_BASE_URL` in `frontend/.env`
-- Use `10.0.2.2` for Android Emulator
+**Backend won't start:**
+- Verify `STRIPE_SECRET_KEY` is set in `backend/.env`
+- Check key starts with `sk_test_`
 
-**Stripe issues:**
-- Verify test key starts with `pk_test_`
+**Cannot connect to backend:**
+- Verify backend is running: `curl http://localhost:3000/api/appointments`
+- Check `EXPO_PUBLIC_API_BASE_URL` in `frontend/.env`
+- Android Emulator must use `10.0.2.2` instead of `localhost`
+
+**Payment fails:**
+- Verify Stripe secret key is valid
 - Use test card: `4242 4242 4242 4242`
+- Check backend terminal for Stripe API errors
 
 **App not updating:**
 ```bash
 cd frontend
-npm start -- --clear
+npm start -- --clear  # Clear Metro cache
 ```
+
+## Environment Variables Summary
+
+**Backend (`backend/.env`):**
+- `STRIPE_SECRET_KEY` - Required for payment processing
+
+**Frontend (`frontend/.env`):**
+- `EXPO_PUBLIC_API_BASE_URL` - Backend API URL
+- `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY` - Stripe public key (display only)
 
 ## License
 
