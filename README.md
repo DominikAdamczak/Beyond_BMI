@@ -68,6 +68,19 @@ npm start
 # Press 'a' for Android or 'i' for iOS
 ```
 
+### Running Tests
+
+**Backend Unit Tests:**
+```bash
+cd backend
+npm test
+```
+
+**Watch Mode (for development):**
+```bash
+npm run test:watch
+```
+
 ## API Endpoints
 
 | Method | Endpoint | Description |
@@ -129,6 +142,7 @@ Beyond_BMI/
 - ✅ Cancel bookings (releases slot)
 - ✅ Reschedule bookings to new slots
 - ✅ Admin endpoint to view all bookings
+- ✅ Unit tests for backend routes
 - ✅ TypeScript type safety
 - ✅ Environment-based configuration
 - ✅ RESTful API design
