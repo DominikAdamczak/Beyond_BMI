@@ -75,12 +75,18 @@ npm start
 | GET | `/api/appointments` | List available slots |
 | POST | `/api/book` | Create booking |
 | POST | `/api/pay` | Process payment via Stripe |
+| GET | `/api/admin/bookings` | View all bookings (admin) |
 
 ## Testing
 
-**Test Card:** `4242 4242 4242 4242`  
-**Expiry:** Any future date (e.g., 12/34)  
+**Test Card:** `4242 4242 4242 4242`
+**Expiry:** Any future date (e.g., 12/34)
 **CVC:** Any 3 digits (e.g., 123)
+
+**View All Bookings (Admin):**
+```bash
+curl http://localhost:3000/api/admin/bookings
+```
 
 ## Project Structure
 
